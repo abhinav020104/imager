@@ -1,7 +1,7 @@
 import express from  "express"
 const router = express.Router();
 import {PrismaClient} from "@prisma/client"
-import {GenerateImage, TrainModel} from "../../../packages/common/types"
+import {GenerateImage, TrainModel} from "../types"
 const prismaClient = new PrismaClient();  
 const USER_ID = "admin"
 router.post("/training" , async (req , res)=>{

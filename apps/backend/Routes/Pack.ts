@@ -1,5 +1,5 @@
 import express from "express"
-import { GenerateImageFromPack } from "../../../packages/common/types";
+import { GenerateImageFromPack } from "../types";
 import {PrismaClient} from "@prisma/client"
 import { dmmfToRuntimeDataModel } from "@prisma/client/runtime/library";
 import { errorUtil } from "zod/lib/helpers/errorUtil";
