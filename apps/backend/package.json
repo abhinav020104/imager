@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@fal-ai/client": "^1.3.0",
+    "@prisma/client": "^6.5.0",
     "@types/cors": "^2.8.17",
     "@types/dotenv": "^8.2.3",
     "@types/express": "^5.0.0",

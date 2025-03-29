@@ -24,19 +24,12 @@ model Model {
   ethinicity     EthinicityEnum
   eyeColor       EyeColorEnum
   bald           Boolean
-  trainingImages TrainingImages[]
   outputImages   OutputImages[]
   triggerWord    String?
   tensorPath     String?
   trainingStatus ModelTrainingStatusEnum @default(Pending)
   falAiRequestId String?
-}
-
-model TrainingImages {
-  id       String @id @default(uuid())
-  imageUrl String
-  modelId  String
-  model    Model  @relation(fields: [modelId], references: [id])
+  zipURL         String
 }
 
 model OutputImages {
