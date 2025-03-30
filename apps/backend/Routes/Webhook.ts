@@ -24,7 +24,6 @@ router.post("/train", async(req , res)=>{
     return;
 })
 
-
 router.post("/image" , async(req , res)=>{
     console.log(req.body);
     const requestId = req.body.request_id; 

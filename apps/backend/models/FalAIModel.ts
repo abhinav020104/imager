@@ -1,6 +1,9 @@
 import { BaseModel } from "./BaseModel";
 import { fal } from "@fal-ai/client";
 
+const dotenv = require("dotenv");
+dotenv.config();
+
 //@ts-ignore
 export class FalAIModel extends BaseModel{
     

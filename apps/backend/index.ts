@@ -4,7 +4,7 @@ import packRoutes from "./Routes/Pack"
 import ImageRoutes from "./Routes/Image"
 import AIRoutes  from "./Routes/Ai"
 import WebhookRoutes from "./Routes/Webhook"
-
+import PreSignRoutes from "./Routes/PreSign"
 
 const app = express();
 
@@ -28,5 +28,6 @@ app.use("/api/v1/pack" , packRoutes);
 app.use("/api/v1/image" , ImageRoutes);
 app.use("/api/v1/ai" , AIRoutes);
 app.use("/fal-ai/webhook" , WebhookRoutes);
+app.use("/api/v1/presign",PreSignRoutes);
 
 
