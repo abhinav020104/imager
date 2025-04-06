@@ -22,7 +22,7 @@ router.get("/get-url", async (req:Request, res:Response)=> {
     try {
         const bucketName = process.env.S3_BUCKET_NAME; 
         
-        console.log(" >>>> USING BUCKET ->" + bucketName + " <<<< ");
+        console.log(" >>>> USING BUCKET : " + bucketName + " <<<< ");
 
         const command = new GetObjectCommand({
             Bucket: bucketName,
