@@ -5,10 +5,10 @@ import { Button } from "../../@#/components/ui/button";
 import axios from "axios";
 import JSZip from "jszip";
 
-export default function ImageUploadForm() {
+export default function ImageUploadForm({onUploadDone}:{onUploadDone:(zipUrl:string)=>void}) {
   const [isLoading, setIsLoading] = useState(false);
-  const [uploaded, setUploaded] = useState(false); // New state to track upload done
-
+  const [uploaded, setUploaded] = useState(false);
+  const CLOUD_FLARE_URL="https://pub-6e6a356a360846388ca123133dcb5963.r2.dev/pixel/"
   return (
     <Card className="w-[350px]">
       <CardHeader>
@@ -36,7 +36,7 @@ export default function ImageUploadForm() {
 
       <CardFooter>
         <div className="flex w-full gap-2 justify-center">
-          <Button 
+          <Button className="cursor-pointer"
             disabled={isLoading} 
             onClick={async () => {
               const zip = new JSZip();
@@ -60,16 +60,16 @@ export default function ImageUploadForm() {
                     }
 
                     const content = await zip.generateAsync({ type: "blob" });
-
                     await axios.put(url, content);
 
-                    console.log("file uploaded successfully");
+                    onUploadDone(`${CLOUD_FLARE_URL}${response.data.key}`)
                     setUploaded(true); 
+
                   } catch (error) {
                     console.error(error);
                   } finally {
                     setIsLoading(false); 
-                    // document.body.removeChild(input);
+                    
                   }
                 }
               };

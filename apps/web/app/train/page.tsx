@@ -1,4 +1,6 @@
+"use client"
 import { Button } from "../../@#/components/ui/button"
+import { useState } from "react"
 import {
   Card,
   CardContent,
@@ -11,7 +13,6 @@ import { Input } from "../../@#/components/ui/input"
 import { Label } from "../../@#/components/ui/label"
 import { Switch } from "../../@#/components/ui/switch"
 import ImageUploadForm from "../../@#/components/imageUploadForm"
-import NavBar from "../../@#/components/ui/nav"
 import {
   Select,
   SelectContent,
@@ -19,10 +20,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../@#/components/ui/select"
+
 const train = ()=>{
+    // eslint-disable-next-line react-hooks/rules-of-hooks, @typescript-eslint/no-unused-vars
+    const [zipUrl, setZipUrl] = useState<string>("");
+    const [ name, setName] = useState<string>("");
+    const [ age, setAge] = useState<string>("");
+    const [ type, setType] = useState<string>("");
+    const [ ethinicity, setEthinicity] = useState<string>("");
+    const [ eyecolor, setEyecolor] = useState<string>("");
+    const [ bald, setBald] = useState<boolean>(false);
     return (
         <div className="h-screen w-screen">
-            <NavBar></NavBar>
             <div className="items-center flex justify-center gap-24 bg-green-200 h-full">
             <Card className="w-[400px]">
             <CardHeader>
@@ -89,18 +98,20 @@ const train = ()=>{
                 <div className="flex flex-col space-y-1.5">
                 <div className="flex gap-2">
                 <Label htmlFor="eyecolor">Bald</Label>
-                <Switch></Switch>
+                <Switch className="cursor-pointer"></Switch>
                 </div>
                 </div>
             </div>
             </form>
             </CardContent>
             <CardFooter className="flex justify-between">
-                <Button variant="outline">Cancel</Button>
-                <Button>Train Model</Button>
+                <Button variant="outline"className="cursor-pointer">Cancel</Button>
+                <Button className="cursor-pointer">Train Model</Button>
             </CardFooter>
             </Card>
-            <ImageUploadForm />
+            <ImageUploadForm onUploadDone = {(zipUrl:string)=>{
+                setZipUrl(zipUrl);
+            }}/>
         </div>
         </div>
         
