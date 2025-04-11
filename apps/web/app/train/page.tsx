@@ -1,6 +1,7 @@
 "use client"
 import { Button } from "../../@#/components/ui/button"
 import { useState } from "react"
+import axios from "axios"
 import {
   Card,
   CardContent,
@@ -20,8 +21,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../@#/components/ui/select"
+import { useRouter } from "next/navigation"
 
 const Train = () => {
+  const router = useRouter();
   const [zipUrl, setZipUrl] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [age, setAge] = useState<string>("");
@@ -31,6 +34,36 @@ const Train = () => {
   const [bald, setBald] = useState<boolean>(false);
 
   const isFormValid = name && age && type && ethinicity && eyecolor && zipUrl;
+
+  const resetFormData = () => {
+    setName("");  
+    setAge("");
+    setType("");
+    setEthinicity("");
+    setEyecolor("");
+    setZipUrl("");
+    setBald(false);
+  }
+
+  
+
+  const trainModel = async() =>{
+    const data = {
+      name,
+      age: parseInt(age),
+      type,
+      ethinicity,
+      eyeColor:eyecolor,
+      zipURL:zipUrl,
+      bald,
+      userId:"ADMIN"
+    };
+    try{
+      await axios.post("http://localhost:4000/api/v1/ai/training", data)
+    }catch(e){
+      console.log(" >>> ERROR OCCURED WHILE TRAINING THE MODEL >>> ", e);
+    }
+  }
 
   return (
     <div className="h-screen w-screen">
@@ -67,9 +100,9 @@ const Train = () => {
                     <SelectValue placeholder="Select Type" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="1">Man</SelectItem>
-                    <SelectItem value="2">Woman</SelectItem>
-                    <SelectItem value="3">Others</SelectItem>
+                    <SelectItem value="Man">Man</SelectItem>
+                    <SelectItem value="Woman">Woman</SelectItem>
+                    <SelectItem value="Other">Others</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -80,15 +113,15 @@ const Train = () => {
                     <SelectValue placeholder="Select Ethinicity" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="1">Asian</SelectItem>
-                    <SelectItem value="2">Black</SelectItem>
-                    <SelectItem value="3">White</SelectItem>
-                    <SelectItem value="4">Hispanic</SelectItem>
-                    <SelectItem value="5">Middle Eastern</SelectItem>
-                    <SelectItem value="6">Pacific</SelectItem>
-                    <SelectItem value="7">South East Asian</SelectItem>
-                    <SelectItem value="8">South Asian</SelectItem>
-                    <SelectItem value="9">East Asian</SelectItem>
+                    <SelectItem value="Asian">Asian</SelectItem>
+                    <SelectItem value="Black">Black</SelectItem>
+                    <SelectItem value="White">White</SelectItem>
+                    <SelectItem value="Hispanic">Hispanic</SelectItem>
+                    <SelectItem value="Middle Eastern">Middle Eastern</SelectItem>
+                    <SelectItem value="Pacific">Pacific</SelectItem>
+                    <SelectItem value="South East Asian">South East Asian</SelectItem>
+                    <SelectItem value="South Asian">South Asian</SelectItem>
+                    <SelectItem value="East Asian">East Asian</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -99,10 +132,10 @@ const Train = () => {
                     <SelectValue placeholder="Select Eye Color" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="1">Brown</SelectItem>
-                    <SelectItem value="2">Blue</SelectItem>
-                    <SelectItem value="3">Hazel</SelectItem>
-                    <SelectItem value="4">Gray</SelectItem>
+                    <SelectItem value="Brown">Brown</SelectItem>
+                    <SelectItem value="Blue">Blue</SelectItem>
+                    <SelectItem value="Hazel">Hazel</SelectItem>
+                    <SelectItem value="Gray">Gray</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -115,8 +148,15 @@ const Train = () => {
             </form>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <Button variant="outline" className="cursor-pointer">Cancel</Button>
-            <Button className="cursor-pointer" disabled={!isFormValid}>
+            <Button variant="outline" className="cursor-pointer" onClick = {()=>{
+              resetFormData();
+              router.push("/");
+            }}>Cancel</Button>
+            <Button className="cursor-pointer" disabled={!isFormValid} onClick={()=>{
+              trainModel();
+              resetFormData();
+              router.push("/");
+            }}>
               Train Model
             </Button>
           </CardFooter>
