@@ -17,7 +17,7 @@ const s3Client = new S3Client({
 });
 
 //@ts-ignore
-router.get("/get-url", authMiddleWare , async (req:Request, res:Response)=> {
+router.get("/get-url" , async (req:Request, res:Response)=> {
     const key = `${Date.now()}_${Math.random()}.zip`;
     try {
         const bucketName = process.env.S3_BUCKET_NAME; 

@@ -6,12 +6,13 @@ const prismaClient = new PrismaClient();
 import { S3Client, ListBucketsCommand , PutObjectCommand , GetObjectCommand} from "@aws-sdk/client-s3";
 import { FalAIModel } from "../models/FalAIModel";
 import { authMiddleWare } from "../middleware";
+import { parse } from "dotenv";
 
 const falAiModel = new FalAIModel();
 //@ts-ignore
 router.post("/training" , authMiddleWare ,  async (req , res)=>{
+   //@ts-ignore
     const parsedBody = TrainModel.safeParse(req.body);
-    const images = req.body.images;
 
     if(!parsedBody.success){
         res.status(411).json({
@@ -22,27 +23,27 @@ router.post("/training" , authMiddleWare ,  async (req , res)=>{
 
     //@ts-ignore    
     
-    const {request_id , response_url} =  falAiModel.trainModel( "", parsedBody.data.name);
+    // const {request_id , response_url} =  falAiModel.trainModel( "", parsedBody.data.name);
 
-    const data = await prismaClient.model.create({
+    // const data = await prismaClient.model.create({
 
-        data:{
-            name:parsedBody.data.name,
-            type:parsedBody.data.type,
-            age:parsedBody.data.age,
-            ethinicity:parsedBody.data.ethinicity,
-            eyeColor:parsedBody.data.eyeColor,
-            bald:parsedBody.data.bald,
-            userId:parsedBody.data.userId,
-            falAiRequestId:request_id,
-            zipURL:parsedBody.data.zipURL,  
-        }
-    })
+    //     data:{
+    //         name:parsedBody.data.name,
+    //         type:parsedBody.data.type,
+    //         age:parsedBody.data.age,
+    //         ethinicity:parsedBody.data.ethinicity,
+    //         eyeColor:parsedBody.data.eyeColor,
+    //         bald:parsedBody.data.bald,
+    //         userId:parsedBody.data.userId,
+    //         falAiRequestId:request_id,
+    //         zipURL:parsedBody.data.zipURL,  
+    //     }
+    // })
 
     res.status(200).json({
         success:true,
         message:"Model Created Successfully !",
-        modelId:data.id
+        // modelId:data.id
     })
 
     return;
@@ -77,21 +78,21 @@ router.post("/generate" , authMiddleWare , async (req , res)=>{
         return
     }
 
-    const {request_id , response_url} = await falAiModel.generateImage(parsedBody.data.prompt , model.tensorPath);
+    // const {request_id , response_url} = await falAiModel.generateImage(parsedBody.data.prompt , model.tensorPath);
 
-    const data = await prismaClient.outputImages.create({
-        data:{
-            prompt:parsedBody.data.prompt,
-            userId:parsedBody.data.userId,  
-            modelId:parsedBody.data.modelId,
-            falAiRequestId:request_id,
-        }
-    })
+    // const data = await prismaClient.outputImages.create({
+    //     data:{
+    //         prompt:parsedBody.data.prompt,
+    //         userId:parsedBody.data.userId,  
+    //         modelId:parsedBody.data.modelId,
+    //         falAiRequestId:request_id,
+    //     }
+    // })
 
     res.status(200).json({
         success:true,
-        data:data,
-        imageId : data.id,
+        // data:data,
+        // imageId : data.id,
     })
 
     return;

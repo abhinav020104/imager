@@ -1,7 +1,6 @@
 import { NextFunction , Request , Response} from "express";
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv";
-import { string } from "zod";
 dotenv.config();
 
 export async function authMiddleWare(req:Request , res:Response , next:NextFunction){
@@ -17,7 +16,11 @@ export async function authMiddleWare(req:Request , res:Response , next:NextFunct
             algorithms: ["RS256"]
         })
         console.log(decoded);
-        next();
+        if(decoded?.sub){
+            //@ts-ignore
+            req.body.userId = decoded.sub as string;
+            next();
+        }
     }catch(error){
         return res.status(401).json({ message: "Invalid token" });
     }
