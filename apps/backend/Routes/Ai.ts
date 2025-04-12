@@ -3,12 +3,13 @@ const router = express.Router();
 import {PrismaClient} from "@prisma/client"
 import {GenerateImage, TrainModel} from "../types"
 const prismaClient = new PrismaClient();  
-const USER_ID = "admin"
 import { S3Client, ListBucketsCommand , PutObjectCommand , GetObjectCommand} from "@aws-sdk/client-s3";
 import { FalAIModel } from "../models/FalAIModel";
+import { authMiddleWare } from "../middleware";
 
 const falAiModel = new FalAIModel();
-router.post("/training" , async (req , res)=>{
+//@ts-ignore
+router.post("/training" , authMiddleWare ,  async (req , res)=>{
     const parsedBody = TrainModel.safeParse(req.body);
     const images = req.body.images;
 
@@ -48,8 +49,8 @@ router.post("/training" , async (req , res)=>{
 
 })
 
-
-router.post("/generate" , async (req , res)=>{
+//@ts-ignore
+router.post("/generate" , authMiddleWare , async (req , res)=>{
     const parsedBody = GenerateImage.safeParse(req.body);
     if(!parsedBody.success){
         res.status(411).json({

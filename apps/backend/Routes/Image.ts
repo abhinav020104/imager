@@ -2,8 +2,10 @@ import express from "express"
 const router = express.Router();
 import {PrismaClient} from "@prisma/client"
 const prismaClient  = new PrismaClient();
-const USER_ID="admin"
-router.get("/bulk" , async (req , res)=>{
+import { authMiddleWare } from "../middleware";
+
+//@ts-ignore
+router.get("/bulk" , authMiddleWare , async (req , res)=>{
 
     const ids = req.query.ids  as string[];
     const limit = req.query.limit as string ?? "10";
@@ -13,7 +15,8 @@ router.get("/bulk" , async (req , res)=>{
         const imagesData = await prismaClient.outputImages.findMany({
             where:{
                 id:{in: ids},
-                userId:USER_ID,
+                //@ts-ignore
+                userId:req.userId!,
             },
             skip:parseInt(offset),
             take:parseInt(limit),

@@ -6,7 +6,7 @@ import { Request, Response , Router} from "express";
 const router = Router();
 const dotenv = require("dotenv");   
 dotenv.config();
-
+import {authMiddleWare} from "../middleware";
 const s3Client = new S3Client({
     region: "auto",
     endpoint:process.env.S3_ENDPOINT as string, 
@@ -17,7 +17,7 @@ const s3Client = new S3Client({
 });
 
 //@ts-ignore
-router.get("/get-url", async (req:Request, res:Response)=> {
+router.get("/get-url", authMiddleware , async (req:Request, res:Response)=> {
     const key = `${Date.now()}_${Math.random()}.zip`;
     try {
         const bucketName = process.env.S3_BUCKET_NAME; 

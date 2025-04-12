@@ -5,10 +5,9 @@ import { dmmfToRuntimeDataModel } from "@prisma/client/runtime/library";
 import { errorUtil } from "zod/lib/helpers/errorUtil";
 const prismaClient = new PrismaClient();
 const router = express.Router();
-const USER_ID = "admin"
-
+import { authMiddleWare } from "../middleware";
 //@ts-ignore
-router.post("/generate" , async(req , res)=>{
+router.post("/generate" , authMiddleWare,  async(req , res)=>{
 
     const parsedBody = GenerateImageFromPack.safeParse(req.body)
     try{
@@ -28,7 +27,8 @@ router.post("/generate" , async(req , res)=>{
         const images = await prismaClient.outputImages.createManyAndReturn({
             data:prompts.map((prompt)=>({
                 prompt:prompt.prompt,
-                userId:USER_ID,
+                //@ts-ignore
+                userId:req.userId!,
                 modelId:parsedBody.data.modelId,
             }))
         })
@@ -50,7 +50,7 @@ router.post("/generate" , async(req , res)=>{
 
 
 //@ts-ignore
-router.get("/bulk" , async(req , res)=>{
+router.get("/bulk" , authMiddleWare , async(req , res)=>{
     try{    
         const packs = await prismaClient.packs.findMany({})
         return res.status(200).json({
