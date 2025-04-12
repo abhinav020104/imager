@@ -1,5 +1,5 @@
 "use client"
-import { Button } from "../../@#/components/ui/button"
+import { Button } from "../../components/ui/button"
 import { useState } from "react"
 import axios from "axios"
 import {
@@ -9,18 +9,18 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../../@#/components/ui/card"
-import { Input } from "../../@#/components/ui/input"
-import { Label } from "../../@#/components/ui/label"
-import { Switch } from "../../@#/components/ui/switch"
-import ImageUploadForm from "../../@#/components/imageUploadForm"
+} from "../../components/ui/card"
+import { Input } from "../../components/ui/input"
+import { Label } from "../../components/ui/label"
+import { Switch } from "../../components/ui/switch"
+import ImageUploadForm from "../../components/imageUploadForm"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../@#/components/ui/select"
+} from "../../components/ui/select"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@clerk/nextjs"
 const Train = () => {

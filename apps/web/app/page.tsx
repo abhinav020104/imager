@@ -8,14 +8,14 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "../@#/components/ui/carousel";
+} from "../components/ui/carousel";
 
 import pic1 from "../assets/photo1.jpg";
 import pic2 from "../assets/photo2.jpg";
 import pic3 from "../assets/photo3.jpg";
 import pic4 from "../assets/photo4.jpg";
 
-import CursorBlob from "@#/components/CursorBlob";
+import CursorBlob from "../components/CursorBlob";
 
 export default function Home() {
   return (
