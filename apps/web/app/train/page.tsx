@@ -22,9 +22,10 @@ import {
   SelectValue,
 } from "../../@#/components/ui/select"
 import { useRouter } from "next/navigation"
-
+import { useAuth } from "@clerk/nextjs"
 const Train = () => {
   const router = useRouter();
+  const { getToken }   = useAuth();
   const [zipUrl, setZipUrl] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [age, setAge] = useState<string>("");
@@ -45,7 +46,7 @@ const Train = () => {
     setBald(false);
   }
 
-  
+
 
   const trainModel = async() =>{
     const data = {
@@ -56,10 +57,14 @@ const Train = () => {
       eyeColor:eyecolor,
       zipURL:zipUrl,
       bald,
-      userId:"ADMIN"
     };
     try{
-      await axios.post("http://localhost:4000/api/v1/ai/training", data)
+      const token = await getToken();
+      await axios.post("http://localhost:4000/api/v1/ai/training", data , {
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
+      })
     }catch(e){
       console.log(" >>> ERROR OCCURED WHILE TRAINING THE MODEL >>> ", e);
     }
@@ -67,8 +72,8 @@ const Train = () => {
 
   return (
     <div className="h-screen w-screen">
-      <div className="items-center flex justify-center gap-24 bg-green-200 h-full">
-        <Card className="w-[400px]">
+      <div className="items-center flex justify-center gap-24 bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-50 h-full">
+        <Card className="w-[400px] mt-10">
           <CardHeader>
             <CardTitle>Create project</CardTitle>
             <CardDescription>Deploy your new project in one-click.</CardDescription>

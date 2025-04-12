@@ -34,13 +34,13 @@ export default function Home() {
           Upload your photo and let AI create professional, casual, and creative portraits in seconds.
         </p>
         <a href="#choose-style">
-          <button className="px-8 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full text-lg hover:from-indigo-600 hover:to-purple-600 transition">
+          <button className="px-8 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full text-lg hover:from-indigo-600 hover:to-purple-600 transition cursor-pointer">
             Dive In Now!
           </button>
         </a>
       </motion.section>
 
-      <section id="choose-style" className="min-h-screen py-10 scroll-mt-20">
+      <section id="choose-style" className="min-h-screen py-6 scroll-mt-20">
         <motion.h2
           initial={{ y: 50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
@@ -123,6 +123,12 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      <footer className="bg-gradient-to-br from-indigo-500 to-purple-500 text-white py-6">
+        <div className="flex justify-center items-center">
+          <p className="text-lg">Made With Love ❤️</p>
+        </div>
+      </footer>
     </div>
   );
 }

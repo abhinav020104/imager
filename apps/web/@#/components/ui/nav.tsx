@@ -8,10 +8,10 @@ const NavBar = () => {
   const router = useRouter();
 
   return (
-    <div className="w-screen h-[80px] bg-gray-900 flex px-4 fixed z-50 justify-center shadow-md">
-      <div className="w-11/12 h-full flex justify-between items-center">
+    <div className="w-screen h-[80px] bg-gradient-to-r from-indigo-500 to-purple-500  backdrop-blur-lg flex px-6 fixed z-50 justify-center shadow-2xl">
+      <div className="w-full max-w-7xl h-full flex justify-between items-center">
         <div
-          className="text-white text-2xl font-bold cursor-pointer"
+          className="text-white text-3xl font-extrabold tracking-tight cursor-pointer"
           onClick={() => {
             router.push("/");
           }}
@@ -19,14 +19,12 @@ const NavBar = () => {
           Pixel
         </div>
 
-        <div className="flex gap-4">
-          
-          
+        <div className="flex gap-4 items-center">
           <SignedOut>
             <SignInButton mode="modal">
               <Button
-                variant="default"
-                className="text-lg bg-blue-600 hover:bg-blue-700 cursor-pointer"
+                variant="ghost"
+                className="text-white border border-white hover:bg-white/20 rounded-full px-5 py-2 transition-all duration-300 cursor-pointer"
               >
                 Login
               </Button>
@@ -35,7 +33,7 @@ const NavBar = () => {
             <SignUpButton mode="modal">
               <Button
                 variant="default"
-                className="text-lg bg-green-500 hover:bg-green-700 cursor-pointer"
+                className="bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-full px-6 py-2 hover:scale-105 transition-transform duration-300 shadow-md cursor-pointer"
               >
                 Signup
               </Button>
@@ -43,35 +41,38 @@ const NavBar = () => {
           </SignedOut>
 
           <SignedIn>
-          <Button
-            variant="ghost"
-            className="text-white text-lg hover:bg-gray-200 cursor-pointer"
-            onClick={() => {
-              router.push("/");
-            }}
-          >
-            Home
-          </Button>
+            <Button
+              variant="ghost"
+              className="text-white hover:bg-white/20 rounded-full px-5 py-2 transition-all duration-300"
+              onClick={() => {
+                router.push("/");
+              }}
+            >
+              Home
+            </Button>
 
-          <Button
-            variant="ghost"
-            className="text-white text-lg hover:bg-gray-200 cursor-pointer"
-            onClick={() => {
-              router.push("/train");
-            }}
-          >
-            Train
-          </Button>
+            <Button
+              variant="ghost"
+              className="text-white hover:bg-white/20 rounded-full px-5 py-2 transition-all duration-300"
+              onClick={() => {
+                router.push("/train");
+              }}
+            >
+              Train
+            </Button>
 
-          <Button
-            variant="ghost"
-            className="text-white text-lg hover:bg-gray-200 cursor-pointer"
-          >
-            Gallery
-          </Button>
-          <UserButton></UserButton>
+            <Button
+              variant="ghost"
+              className="text-white hover:bg-white/20 rounded-full px-5 py-2 transition-all duration-300"
+              onClick={() => {
+                router.push("/gallery");
+              }}
+            >
+              Gallery
+            </Button>
+
+            <UserButton afterSignOutUrl="/" />
           </SignedIn>
-
         </div>
       </div>
     </div>
