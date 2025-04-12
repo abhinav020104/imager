@@ -20,6 +20,29 @@ const NavBar = () => {
         </div>
 
         <div className="flex gap-4">
+          
+          
+          <SignedOut>
+            <SignInButton mode="modal">
+              <Button
+                variant="default"
+                className="text-lg bg-blue-600 hover:bg-blue-700 cursor-pointer"
+              >
+                Login
+              </Button>
+            </SignInButton>
+
+            <SignUpButton mode="modal">
+              <Button
+                variant="default"
+                className="text-lg bg-green-500 hover:bg-green-700 cursor-pointer"
+              >
+                Signup
+              </Button>
+            </SignUpButton>
+          </SignedOut>
+
+          <SignedIn>
           <Button
             variant="ghost"
             className="text-white text-lg hover:bg-gray-200 cursor-pointer"
@@ -46,28 +69,6 @@ const NavBar = () => {
           >
             Gallery
           </Button>
-          
-          <SignedOut>
-            <SignInButton mode="modal">
-              <Button
-                variant="default"
-                className="text-lg bg-blue-600 hover:bg-blue-700 cursor-pointer"
-              >
-                Login
-              </Button>
-            </SignInButton>
-
-            <SignUpButton mode="modal">
-              <Button
-                variant="default"
-                className="text-lg bg-green-500 hover:bg-green-700 cursor-pointer"
-              >
-                Signup
-              </Button>
-            </SignUpButton>
-          </SignedOut>
-
-          <SignedIn>
           <UserButton></UserButton>
           </SignedIn>
 
